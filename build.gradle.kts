@@ -54,13 +54,8 @@ dependencies {
     @Suppress("UnstableApiUsage")
     mappings(loom.layered {
         officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.20.2:2023.10.08@zip")
 
-        if (parchmentVersion.contains(":"))
-            // Use exact version
-            parchment("org.parchmentmc.data:parchment-${parchmentVersion}@zip")
-        else
-            // Use minecraft version + given date
-            parchment("org.parchmentmc.data:parchment-${minecraftVersion}:${parchmentVersion}@zip")
     })
     modImplementation("net.fabricmc:fabric-loader:${loaderVersion}")
 

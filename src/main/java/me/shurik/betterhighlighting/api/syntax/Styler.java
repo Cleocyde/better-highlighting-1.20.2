@@ -32,10 +32,11 @@ public final class Styler {
 
     /**
      * Converts a list of tokens to a formatted char sequence with the given theme (for rendering in {@link EditBox})
+     *
      * @param tokenizationResult tokenization result
-     * @param part string to format
-     * @param theme theme to use
-     * @param maxLength maximum string length
+     * @param part               string to format
+     * @param theme              theme to use
+     * @param maxLength          maximum string length
      * @return formatted char sequence
      */
     public static FormattedCharSequence tokensToCharSequence(ITokenizeLineResult<IToken[]> tokenizationResult, String part, String fullString, Theme theme, int maxLength) {
@@ -88,8 +89,9 @@ public final class Styler {
 
     /**
      * Converts a list of tokens to a list of components
+     *
      * @param tokenizationResult tokenization result
-     * @param string string to format
+     * @param string             string to format
      * @return list of components
      */
     public static List<Component> tokensToComponents(ITokenizeLineResult<IToken[]> tokenizationResult, String string, Theme theme) {
@@ -107,9 +109,10 @@ public final class Styler {
 
     /**
      * Formats a token as a char sequence with the given theme
-     * @param token token to format
+     *
+     * @param token  token to format
      * @param string string to format
-     * @param theme theme to use
+     * @param theme  theme to use
      * @return formatted char sequence
      */
     public static FormattedCharSequence formatTokenAsCharSequence(IToken token, String string, Theme theme, @Nullable BracketColorizer bracketColorizer) {
@@ -122,9 +125,10 @@ public final class Styler {
 
     /**
      * Formats a token as a component with the given theme
-     * @param token token to format
+     *
+     * @param token  token to format
      * @param string string to format
-     * @param theme theme to use
+     * @param theme  theme to use
      * @return formatted component
      */
     public static MutableComponent formatTokenAsComponent(IToken token, String string, Theme theme, @Nullable BracketColorizer bracketColorizer) {
@@ -137,6 +141,7 @@ public final class Styler {
 
     /**
      * Gets the TextMate style for the given token
+     *
      * @param token token to get style for
      * @return style attributes
      */
@@ -146,6 +151,7 @@ public final class Styler {
 
     /**
      * Gets the TextMate style for the given token with the given theme
+     *
      * @param token token to get style for
      * @param theme theme to use
      * @return style attributes
@@ -159,9 +165,10 @@ public final class Styler {
 
     /**
      * Gets the Minecraft style for the given token
-     * @implNote if you need bracket coloring, use {@link #formatTokenAsComponent(IToken, String, Theme, BracketColorizer)}
+     *
      * @param token token to get style for
      * @return Minecraft style
+     * @implNote if you need bracket coloring, use {@link #formatTokenAsComponent(IToken, String, Theme, BracketColorizer)}
      */
     public static Style getMinecraftStyle(IToken token) {
         return toMinecraftStyle(getTextMateStyle(token), TextMateRegistry.instance().getCurrentTheme());
@@ -169,6 +176,7 @@ public final class Styler {
 
     /**
      * Gets the Minecraft style for the given token with the given theme
+     *
      * @param token token to get style for
      * @param theme theme to use
      * @return Minecraft style
@@ -179,6 +187,7 @@ public final class Styler {
 
     /**
      * Converts a TextMate style to a Minecraft style
+     *
      * @param attributes style attributes
      * @return Minecraft style
      */
@@ -196,8 +205,9 @@ public final class Styler {
 
     /**
      * Gets the color string for the given ID
+     *
      * @param theme theme to get color from
-     * @param id color ID
+     * @param id    color ID
      * @return color string
      */
     public static String getColorString(Theme theme, int id) {
@@ -210,13 +220,16 @@ public final class Styler {
 
     /**
      * Gets the text color for the given ID
+     *
      * @param theme theme to get color from
-     * @param id color ID
+     * @param id    color ID
      * @return text color
      */
     public static TextColor getTextColor(Theme theme, int id) {
         String hex = getColorString(theme, id);
-        DataResult<TextColor> result = TextColor.parseColor(hex);
-        return result.result().orElse(DEFAULT_COLOR);
+        TextColor result = TextColor.parseColor(hex);
+        if (result != null){
+            return result;
+        }else return DEFAULT_COLOR;
     }
 }
